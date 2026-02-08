@@ -1,232 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine Mission</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Indie+Flower&display=swap" rel="stylesheet">
-    <style>
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Propose Day</title>
 
-        body {
-            background: linear-gradient(135deg, #000000 30%, #8B0000 100%);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            transition: background 0.5s ease;
-        }
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #000000, #1a1a1a);
+      font-family: 'Georgia', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        .app-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      max-width: 900px;
+      width: 90%;
+    }
 
-        .score-banner {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 10px 30px;
-            border-radius: 50px;
-            font-weight: 700;
-            color: #ff3333;
-            margin-bottom: 25px;
-            border: 2px solid #ff3333;
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
-            z-index: 30;
-        }
+    /* Proposal Card */
+    .card {
+      background: #ffffff;
+      color: #000000;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      flex: 1;
+    }
 
-        .glass-box {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            width: 90%;
-            max-width: 380px;
-            box-shadow: 0 0 40px rgba(139, 0, 0, 0.6);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            z-index: 10;
-        }
+    .card p {
+      font-size: 1.3rem;
+      line-height: 1.8;
+      margin: 0 0 12px 0;
+    }
 
-        /* --- Instax Frame Styling --- */
-        .instax-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-            perspective: 1000px;
-        }
+    .highlight {
+      font-weight: bold;
+    }
 
-        .photo-frame {
-            background: #ffffff;
-            padding: 12px 12px 35px 12px; /* Thicker bottom for the 'Instax' look */
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            border-radius: 2px;
-            transform: rotate(-3deg); /* Realistic tilt */
-            transition: transform 0.3s ease;
-            border: 1px solid #ddd;
-            width: 200px; 
-        }
+    /* Image + Music */
+    .music-frame {
+      width: 220px;
+      height: 220px;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+      position: relative;
+    }
 
-        .photo-frame:hover {
-            transform: rotate(0deg) scale(1.05); /* Straighten and zoom on hover */
-        }
+    .music-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-        .instax-photo {
-            width: 100%;
-            aspect-ratio: 1 / 1; /* Perfect square image */
-            object-fit: cover;
-            display: block;
-            border: 1px solid #eee;
-        }
-
-        .instax-label {
-            font-family: 'Indie Flower', cursive; /* Handwritten feel */
-            color: #444;
-            font-size: 1rem;
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        /* UI Elements */
-        .graphics { font-size: 3rem; margin-bottom: 10px; }
-        .question { color: #1a1a1a; font-size: 1.3rem; margin-bottom: 20px; font-weight: 700; }
-        .buttons { display: flex; flex-direction: column; gap: 12px; }
-
-        button { 
-            padding: 15px; 
-            border-radius: 12px; 
-            border: none; 
-            cursor: pointer; 
-            font-weight: 700; 
-            text-transform: uppercase;
-        }
-
-        .btn-primary { background-color: #d32f2f; color: white; }
-        .btn-secondary { background-color: #1a1a1a; color: white; }
-
-        .final-text { color: #d32f2f; font-size: 1.6rem; margin-bottom: 10px; font-weight: 800; }
-        .sub-text { color: #1a1a1a; font-size: 1.1rem; margin-bottom: 20px; font-weight: 600; }
-        .kiss-text { color: #000; font-size: 1.2rem; font-weight: bold; }
-
-        #val-error-msg { color: #d32f2f; margin-top: 20px; font-weight: bold; font-size: 0.9rem; }
-
-        .falling-item {
-            position: fixed;
-            top: -10vh;
-            font-size: 2.5rem;
-            z-index: 9999;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-    </style>
+    .play-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 48px;
+      color: white;
+    }
+  </style>
 </head>
-<body id="body-bg">
+<body>
 
-    <div class="app-wrapper">
-        <div class="score-banner">❤️ Mission Level: <span id="current-score">0</span>/4</div>
+  <div class="container">
 
-        <div class="glass-box" id="page1">
-            <div class="graphics">🤔</div>
-            <h1 class="question">When did I first fall for you?</h1>
-            <div class="buttons">
-                <button class="btn-secondary" onclick="wrong()">Dec 23</button>
-                <button class="btn-secondary" onclick="wrong()">Oct 12</button>
-                <button class="btn-secondary" onclick="showPhotoQuiz()">Nov 23</button>
-                <button class="btn-secondary" onclick="wrong()">I Don't remember</button>
-            </div>
-        </div>
-
-        <div class="glass-box" id="page2" style="display: none;">
-            <div class="instax-container">
-                <div class="photo-frame">
-                    <img src="us.jpg" alt="Us" class="instax-photo">
-                    <div class="instax-label">Our Memory ❤️</div>
-                </div>
-            </div>
-            <h1 class="question">When did we take this picture?</h1>
-            <div class="buttons">
-                <button class="btn-secondary" onclick="wrong()">July 15</button>
-                <button class="btn-secondary" onclick="showProposal()">21 July</button>
-                <button class="btn-secondary" onclick="wrong()">June 21</button>
-                <button class="btn-secondary" onclick="wrong()">Aug 02</button>
-            </div>
-        </div>
-
-        <div class="glass-box" id="page3" style="display: none;">
-            <div class="graphics">❤️‍🔥✨💖</div>
-            <h1 class="question">Will you be my Valentine?</h1>
-            <div class="buttons">
-                <button class="btn-primary" onclick="finalReveal()">YES, OF COURSE</button>
-                <button class="btn-secondary" onclick="showValError()">NO THANK YOU</button>
-            </div>
-            <div id="val-error-msg"></div>
-        </div>
-
-        <div class="glass-box" id="page4" style="display: none;">
-            <h1 class="final-text">Yay! You're My Valentine! 🎉</h1>
-            <p class="sub-text">Thank you for making my day special! ❤️</p>
-            <h2 class="kiss-text">I'm going to kiss you after this! ❤️‍🔥</h2>
-        </div>
+    <!-- Proposal Message -->
+    <div class="card">
+      <p class="highlight">It's 8<sup>th</sup> February</p>
+      <p>Happy Propose Day</p>
+      <p>I want to spend my today, tomorrow,</p>
+      <p>My entire life with you.</p>
+      <p>I wanna grow old with you. ♡</p>
     </div>
 
-    <script>
-        let score = 0;
+    <!-- Image + Music -->
+    <div class="music-frame" onclick="toggleMusic()">
+      <img src="image.jpg" alt="Love Image">
+      <div class="play-overlay" id="icon">▶</div>
+    </div>
 
-        function updateScore(points) {
-            score += points;
-            document.getElementById('current-score').innerText = score;
-        }
+  </div>
 
-        function nextPage(hide, show, points) {
-            updateScore(points);
-            document.getElementById(hide).style.display = 'none';
-            document.getElementById(show).style.display = 'block';
-        }
+  <!-- Local Audio -->
+  <audio id="song">
+    <source src="song.mp3" type="audio/mpeg">
+    Your browser does not support audio.
+  </audio>
 
-        function wrong() {
-            alert("Spidey Sense tingling... that's the wrong answer! 🕸️");
-        }
+  <script>
+    const song = document.getElementById("song");
+    const icon = document.getElementById("icon");
 
-        function showPhotoQuiz() {
-            // Transitions to the Instax page
-            nextPage('page1', 'page2', 1);
-        }
+    function toggleMusic() {
+      if (song.paused) {
+        song.play();
+        icon.innerHTML = "⏸";
+      } else {
+        song.pause();
+        icon.innerHTML = "▶";
+      }
+    }
+  </script>
 
-        function showProposal() {
-            nextPage('page2', 'page3', 1);
-        }
-
-        function showValError() {
-            const err = document.getElementById('val-error-msg');
-            err.innerHTML = "❌ Invalid choice. System has detected you are already my Valentine.";
-            err.style.display = "block";
-        }
-
-        function finalReveal() {
-            nextPage('page3', 'page4', 2);
-            showerChocolates();
-        }
-
-        function showerChocolates() {
-            for (let i = 0; i < 60; i++) {
-                const item = document.createElement('div');
-                item.innerHTML = '🍫';
-                item.className = 'falling-item';
-                item.style.left = Math.random() * 100 + 'vw';
-                item.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                document.body.appendChild(item);
-            }
-        }
-    </script>
 </body>
 </html>
